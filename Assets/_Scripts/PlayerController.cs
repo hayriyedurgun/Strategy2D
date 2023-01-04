@@ -12,10 +12,6 @@ namespace Assets._Scripts
     {
         private ProductBehaviour m_Product;
 
-        public ProductBehaviour BarrackPrefab;
-        public ProductBehaviour PowerPlantPrefab;
-        public ProductBehaviour SoldierUnitPrefab;
-
         private void Update()
         {
             if (m_Product == null) return;
@@ -53,19 +49,8 @@ namespace Assets._Scripts
         {
             yield return new WaitForEndOfFrame();
 
-            if (productType == ProductType.Barrack)
-            {
-                m_Product = Instantiate(BarrackPrefab);
-            }
-            else if (productType == ProductType.PowerPlant)
-            {
-                m_Product = Instantiate(PowerPlantPrefab);
-            }
-            else if (productType == ProductType.SoldierUnit)
-            {
-                m_Product = Instantiate(SoldierUnitPrefab);
-            }
-
+            var prefab = GameManager.Instance.ProductFactory.GetProduct(productType);;
+            m_Product = Instantiate(prefab);
             m_Product.Init();
 
             var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -88,40 +88,5 @@ namespace Assets._Scripts
 
             return m_Tiles[x, y];
         }
-
-        public bool TryAllocate(ProductBehaviour product, IEnumerable<RaycastHit2D> hits)
-        {
-            var boundCount = product.Bounds.x * product.Bounds.y;
-            if (hits.Count() != boundCount)
-            {
-                return false;
-            }
-
-            float sumX = 0f;
-            float sumY = 0f;
-
-            int x;
-            int y;
-
-            foreach (var hit in hits)
-            {
-                x = Mathf.RoundToInt(hit.point.x / CellSize);
-                y = Mathf.RoundToInt(hit.point.y / CellSize);
-
-                m_Tiles[x, y].IsOccupied = true;
-
-                sumX += x;
-                sumY += y;
-            }
-
-            var roundX = (sumX * CellSize) / hits.Count();
-            var roundY = (sumY * CellSize) / hits.Count();
-
-            product.transform.position = new Vector3(roundX, roundY, 0);
-            product.Place();
-
-            return true;
-        }
-
     }
 }

@@ -29,13 +29,6 @@ namespace Assets._Scripts
             transform.localScale = new Vector3(Width, Height, 1);
         }
 
-        public void Place()
-        {
-            var color = Renderer.color;
-            color.a = 1f;
-            Renderer.color = color;
-        }
-
         public void SendRay()
         {
             ClearTiles();
@@ -74,6 +67,10 @@ namespace Assets._Scripts
             var y = (float)m_ColoredTiles.Average(x=> x.PosY);
 
             transform.position = new Vector3(x, y, 0);
+            var color = Renderer.color;
+            color.a = 1f;
+            Renderer.color = color;
+
             return true;
         }
 

@@ -15,7 +15,7 @@ namespace Assets._Scripts
 
         public PlayerController Player;
 
-        public TileObjectPooler TilePool;
+        public ProductFactory ProductFactory;
 
         private void Awake()
         {
