@@ -13,15 +13,19 @@ namespace Assets._Scripts
         private int m_Width = 5;
         [SerializeField]
         private int m_Height = 2;
-        [SerializeField]
-        private float m_CellSize = 10;
-        
+
+        public float CellSize = 10;
+
         private TileBehaviour[,] m_Tiles;
 
         public TileBehaviour TilePrefab;
 
+        private static GridManager m_Instance = null;
+        public static GridManager Instance => m_Instance;
+
         private void Awake()
         {
+            m_Instance = this;
             m_Tiles = new TileBehaviour[m_Width, m_Height];
 
             TileBehaviour tile;
@@ -31,27 +35,17 @@ namespace Assets._Scripts
                 for (int y = 0; y < m_Height; y++)
                 {
                     tile = Instantiate(TilePrefab, transform);
-                    tile.transform.localPosition = new Vector3(x * m_CellSize, y * m_CellSize, 0);
+                    tile.transform.localPosition = new Vector3(x * CellSize, y * CellSize, 0);
 
-                    tile.Init(x, y, m_CellSize);
+                    tile.Init(x, y, CellSize);
                     m_Tiles[x, y] = tile;
                 }
             }
         }
 
-        private void Update()
+        private void OnDestroy()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-                if (hit.collider != null)
-                {
-                    var gridPos = ConvertToGrid(hit.point);
-                    var tile = m_Tiles[(int)gridPos.x, (int)gridPos.y];
-                    tile.Value++;
-                }
-            }
+            m_Instance = null;
         }
 
         private void SetValue(int x, int y, int value)
@@ -66,17 +60,68 @@ namespace Assets._Scripts
             SetValue((int)gridPos.x, (int)gridPos.y, value);
         }
 
-        private Vector3 ConvertToGrid(Vector3 wordPos)
+        private Vector3 ConvertToWorld(int x, int y)
         {
-            var x = Mathf.RoundToInt(wordPos.x / m_CellSize);
-            var y = Mathf.RoundToInt(wordPos.y / m_CellSize);
+            return new Vector3(x * CellSize, y * CellSize, 0);
+        }
+
+        public Vector3 ConvertToGrid(Vector3 wordPos)
+        {
+            var x = Mathf.RoundToInt(wordPos.x / CellSize);
+            var y = Mathf.RoundToInt(wordPos.y / CellSize);
 
             return new Vector3(x, y, 0);
         }
 
-        private Vector3 ConvertToWorld(int x, int y)
+        public TileBehaviour ConvertToTile(Vector3 wordPos)
         {
-            return new Vector3(x * m_CellSize, y * m_CellSize, 0);
+            var x = Mathf.RoundToInt(wordPos.x / CellSize);
+            var y = Mathf.RoundToInt(wordPos.y / CellSize);
+
+            if (m_Tiles.GetLength(0) < x + 1 ||
+                m_Tiles.GetLength(1) < y + 1 ||
+                x < 0 ||
+                y < 0)
+            {
+                return null;
+            }
+
+            return m_Tiles[x, y];
         }
+
+        public bool TryAllocate(ProductBehaviour product, IEnumerable<RaycastHit2D> hits)
+        {
+            var boundCount = product.Bounds.x * product.Bounds.y;
+            if (hits.Count() != boundCount)
+            {
+                return false;
+            }
+
+            float sumX = 0f;
+            float sumY = 0f;
+
+            int x;
+            int y;
+
+            foreach (var hit in hits)
+            {
+                x = Mathf.RoundToInt(hit.point.x / CellSize);
+                y = Mathf.RoundToInt(hit.point.y / CellSize);
+
+                m_Tiles[x, y].IsOccupied = true;
+
+                sumX += x;
+                sumY += y;
+            }
+
+            var roundX = (sumX * CellSize) / hits.Count();
+            var roundY = (sumY * CellSize) / hits.Count();
+
+            product.transform.position = new Vector3(roundX, roundY, 0);
+            product.Place();
+
+            return true;
+        }
+
     }
 }

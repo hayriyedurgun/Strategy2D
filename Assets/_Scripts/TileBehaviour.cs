@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets._Scripts
 {
@@ -14,11 +15,28 @@ namespace Assets._Scripts
         public int PosY;
         public float CellSize;
 
+        public Image AvailityImage;
+
         public TextMeshPro Text;
 
         [NonSerialized]
-        public bool IsOccupied = false;
-
+        private bool m_IsOccupied;
+        public bool IsOccupied
+        {
+            get => m_IsOccupied;
+            set
+            {
+                m_IsOccupied = value;
+                if (m_IsOccupied)
+                {
+                    Value = 1;
+                }
+                else
+                {
+                    Value = 0;
+                }
+            }
+        }
 
         private int m_Value;
         public int Value
@@ -39,5 +57,23 @@ namespace Assets._Scripts
 
             Text.text = Value.ToString();
         }
+
+        public void SetStatus(bool canPlace)
+        {
+            AvailityImage.gameObject.SetActive(true);
+            AvailityImage.color = canPlace ? new Color(0, 1, 0, .5f) : new Color(1, 0, 0, .5f);
+        }
+
+        public void ClearStatus()
+        {
+            AvailityImage.gameObject.SetActive(false);
+        }
+    }
+
+    public enum TileStatus
+    {
+        None,
+        Available,
+        NotAvailable
     }
 }
