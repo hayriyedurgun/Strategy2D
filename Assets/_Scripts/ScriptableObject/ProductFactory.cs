@@ -12,7 +12,7 @@ namespace Assets._Scripts
     {
         public List<ProductInfo> Products;
 
-        public ProductBehaviour GetProduct(ProductType type)
+        public BaseProduct GetProduct(ProductType type)
         {
             var info = GetProductInfo(type);
             return info.ProductPrefab;
@@ -39,10 +39,11 @@ namespace Assets._Scripts
         public bool HasProduction;
         public ProductType ProductionType;
         public Sprite ProductionSprite;
+        public float Cooldown;
 
         public int Width;
         public int Height;
 
-        public ProductBehaviour ProductPrefab;
+        public BaseProduct ProductPrefab;
     }
 }
