@@ -11,31 +11,34 @@ namespace Assets._Scripts
 {
     public class PlayerController : MonoBehaviour
     {
-        private ProductBehaviour m_Product;
+        private BaseProduct m_ProductToBeCreate;
+        private TileBehaviour m_SelectedTile;
 
         private void Update()
         {
-            if (m_Product)
+            if (m_ProductToBeCreate)
             {
                 if (Input.GetMouseButtonUp(0))
                 {
-                    if (!m_Product.TryPlace())
+                    if (!m_ProductToBeCreate.TryPlace())
                     {
-                        Destroy(m_Product.gameObject);
+                        Destroy(m_ProductToBeCreate.gameObject);
                     }
 
-                    m_Product.ClearTiles();
-                    m_Product = null;
+                    m_ProductToBeCreate.ClearTiles();
+                    m_ProductToBeCreate = null;
 
                     return;
                 }
 
-                m_Product.SendRay();
+                Debug.Log($"** Delta: {Input.mouseScrollDelta}");
+
+                m_ProductToBeCreate.SendRay();
 
                 var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 worldPos.z = 0;
 
-                m_Product.transform.position = worldPos;
+                m_ProductToBeCreate.transform.position = worldPos;
             }
             else
             {
@@ -48,9 +51,24 @@ namespace Assets._Scripts
                         var tile = GridManager.Instance.ConvertToTile(hit.point);
                         if (tile && tile.Product != null)
                         {
+                            m_SelectedTile = tile;
+                            Debug.Log($"** Selected tile is {m_SelectedTile.Product.name} now!");
                             GUIManager.Instance.InfoPanel.Init(tile.Product);
-                            GUIManager.Instance.InfoPanel.SetVisibility(true);  
+                            GUIManager.Instance.InfoPanel.SetVisibility(true);
                         }
+                    }
+                }
+
+                if (Input.GetMouseButtonDown(1) && m_SelectedTile != null)
+                {
+                    GridManager.Instance.ClearTiles();
+
+                    var endTile = GridManager.Instance.ConvertToTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    var path = GridManager.Instance.FindPath(m_SelectedTile, endTile);
+
+                    if (path != null)
+                    {
+                        path.ForEach(x=> x.SetPurple());
                     }
                 }
             }
@@ -67,14 +85,13 @@ namespace Assets._Scripts
             yield return new WaitForEndOfFrame();
 
             var info = GameManager.Instance.ProductFactory.GetProductInfo(productType);
-            m_Product = Instantiate(info.ProductPrefab);
-            m_Product.Init(info);
+            m_ProductToBeCreate = Instantiate(info.ProductPrefab);
+            m_ProductToBeCreate.Initialize(info);
 
             var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPos.z = 0;
-            m_Product.transform.position = worldPos;
+            m_ProductToBeCreate.transform.position = worldPos;
         }
-
     }
 }
 
