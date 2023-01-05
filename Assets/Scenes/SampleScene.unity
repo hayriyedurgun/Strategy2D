@@ -1195,7 +1195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4634771344259913681, guid: 02ee3fc10e24b974ba7800f00388a1ba, type: 3}
       propertyPath: CellSize
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4634771344259913681, guid: 02ee3fc10e24b974ba7800f00388a1ba, type: 3}
       propertyPath: m_Height

@@ -15,8 +15,6 @@ namespace Assets._Scripts
 
         private void Update()
         {
-            //if (m_Product == null) return;
-
             if (m_Product)
             {
                 if (Input.GetMouseButtonUp(0))

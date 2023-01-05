@@ -32,12 +32,14 @@ namespace Assets._Scripts.Managers
         private void OnDestroy()
         {
             m_Instance = null;
+            WindowBehaviour.WindowResized -= OnWindowResized;
         }
 
 
         private void OnWindowResized()
         {
-            GridManager.Instance.Resize();
+            //GridManager.Instance.Resize();
+            Debug.Log("** Resized!!");
         }
     }
 }

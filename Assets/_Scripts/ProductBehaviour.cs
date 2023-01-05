@@ -70,8 +70,8 @@ namespace Assets._Scripts
 
             m_ColoredTiles.ForEach(x => x.Product = this);
 
-            var x = (float)m_ColoredTiles.Average(x => x.PosX);
-            var y = (float)m_ColoredTiles.Average(x => x.PosY);
+            var x = (float)m_ColoredTiles.Average(x => x.transform.position.x);
+            var y = (float)m_ColoredTiles.Average(x => x.transform.position.y);
 
             transform.position = new Vector3(x, y, 0);
             var color = Renderer.color;

@@ -10,16 +10,18 @@ namespace Assets._Scripts
 {
     public class GridManager : MonoBehaviour
     {
-        [SerializeField]
-        private int m_Width = 5;
-        [SerializeField]
-        private int m_Height = 2;
-
-        public float CellSize = 10;
-
         private TileBehaviour[,] m_Tiles;
 
+        [NonSerialized]
+        public int Width;
+        [NonSerialized]
+        public int Height;
+        [NonSerialized]
+        public float CellSize = 1f;
+
         public TileBehaviour TilePrefab;
+
+        public Vector3 Offset { get; } = new Vector3(-2.25f, -2f, 0);
 
         private static GridManager m_Instance = null;
         public static GridManager Instance => m_Instance;
@@ -27,16 +29,22 @@ namespace Assets._Scripts
         private void Awake()
         {
             m_Instance = this;
-            m_Tiles = new TileBehaviour[m_Width, m_Height];
+        }
+
+        private void Start()
+        {
+            Width = 8;
+            Height = 5;
+
+            m_Tiles = new TileBehaviour[Width, Height];
 
             TileBehaviour tile;
-
-            for (int x = 0; x < m_Width; x++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int y = 0; y < m_Height; y++)
+                for (int y = 0; y < Height; y++)
                 {
                     tile = Instantiate(TilePrefab, transform);
-                    tile.transform.localPosition = new Vector3(x * CellSize, y * CellSize, 0);
+                    tile.transform.localPosition = new Vector3(x * CellSize, y * CellSize, 0) + Offset;
 
                     tile.Init(x, y, CellSize);
                     m_Tiles[x, y] = tile;
@@ -57,27 +65,30 @@ namespace Assets._Scripts
 
         private void SetValue(Vector3 worldPos, int value)
         {
-            var gridPos = ConvertToGrid(worldPos);
+            var gridPos = ConvertToGrid(worldPos - Offset);
             SetValue((int)gridPos.x, (int)gridPos.y, value);
         }
 
-        private Vector3 ConvertToWorld(int x, int y)
+        public Vector3 ConvertToWorld(int x, int y)
         {
-            return new Vector3(x * CellSize, y * CellSize, 0);
+            return new Vector3(x * CellSize, y * CellSize, 0) - Offset;
         }
 
         public Vector3 ConvertToGrid(Vector3 wordPos)
         {
-            var x = Mathf.RoundToInt(wordPos.x / CellSize);
-            var y = Mathf.RoundToInt(wordPos.y / CellSize);
+            var pos = wordPos - Offset;
+            var x = Mathf.RoundToInt(pos.x / CellSize);
+            var y = Mathf.RoundToInt(pos.y / CellSize);
 
             return new Vector3(x, y, 0);
         }
 
         public TileBehaviour ConvertToTile(Vector3 wordPos)
         {
-            var x = Mathf.RoundToInt(wordPos.x / CellSize);
-            var y = Mathf.RoundToInt(wordPos.y / CellSize);
+            var pos = wordPos - Offset;
+
+            var x = Mathf.RoundToInt(pos.x / CellSize);
+            var y = Mathf.RoundToInt(pos.y / CellSize);
 
             if (m_Tiles.GetLength(0) < x + 1 ||
                 m_Tiles.GetLength(1) < y + 1 ||
@@ -88,12 +99,6 @@ namespace Assets._Scripts
             }
 
             return m_Tiles[x, y];
-        }
-
-        public void Resize()
-        {
-            //Width = (Screen.width - GUIManager.Instance.ProductPanel.sizeDelta.x) / CellSize;
-            //Height = Screen.width / CellSize;
         }
     }
 }
