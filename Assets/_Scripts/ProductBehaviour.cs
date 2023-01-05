@@ -11,25 +11,25 @@ namespace Assets._Scripts
     {
         private List<TileBehaviour> m_ColoredTiles = new List<TileBehaviour>();
         private bool m_CanPlaceable;
-
-        public SpriteRenderer Renderer;
-        public int Width;
-        public int Height;
         public Transform[] RayTransforms;
 
         [NonSerialized]
         public ProductType Type;
+        private List<SpriteRenderer> m_Renderers;
 
-        public Vector3 Bounds { get; private set; }
-
-        public void Init()
+        public void Init(ProductInfo info)
         {
-            var color = Renderer.color;
-            color.a = .5f;
-            Renderer.color = color;
+            m_Renderers = GetComponentsInChildren<SpriteRenderer>().ToList();
 
-            Bounds = new Vector3(Width, Height, 0) * GridManager.Instance.CellSize;
-            transform.localScale = new Vector3(Width, Height, 1);
+            if (m_Renderers.Any())
+            {
+                var color = m_Renderers.FirstOrDefault().color;
+                color.a = .5f;
+                m_Renderers.ForEach(x => x.color = color);
+            }
+
+            Type = info.Type;
+            //transform.localScale = new Vector3(info.Width, info.Height, 1);
         }
 
         public void SendRay()
@@ -74,9 +74,13 @@ namespace Assets._Scripts
             var y = (float)m_ColoredTiles.Average(x => x.transform.position.y);
 
             transform.position = new Vector3(x, y, 0);
-            var color = Renderer.color;
-            color.a = 1f;
-            Renderer.color = color;
+
+            if (m_Renderers.Any())
+            {
+                var color = m_Renderers.FirstOrDefault().color;
+                color.a = 1f;
+                m_Renderers.ForEach(x => x.color = color);
+            }
 
             return true;
         }

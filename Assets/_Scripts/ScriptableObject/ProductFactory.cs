@@ -39,6 +39,9 @@ namespace Assets._Scripts
         public bool HasProduct;
         public Sprite ProductSprite;
 
+        public int Width;
+        public int Height;
+
         public ProductBehaviour ProductPrefab;
     }
 }

@@ -12,16 +12,13 @@ namespace Assets._Scripts
     {
         private TileBehaviour[,] m_Tiles;
 
-        [NonSerialized]
-        public int Width;
-        [NonSerialized]
-        public int Height;
-        [NonSerialized]
+        public int Width = 8;
+        public int Height = 5;
         public float CellSize = 1f;
 
         public TileBehaviour TilePrefab;
 
-        public Vector3 Offset { get; } = new Vector3(-2.25f, -2f, 0);
+        public Vector3 Offset { get; } = new Vector3(-3.35f, -3.5f, 0);
 
         private static GridManager m_Instance = null;
         public static GridManager Instance => m_Instance;
@@ -33,9 +30,6 @@ namespace Assets._Scripts
 
         private void Start()
         {
-            Width = 8;
-            Height = 5;
-
             m_Tiles = new TileBehaviour[Width, Height];
 
             TileBehaviour tile;
@@ -55,18 +49,6 @@ namespace Assets._Scripts
         private void OnDestroy()
         {
             m_Instance = null;
-        }
-
-        private void SetValue(int x, int y, int value)
-        {
-            var tile = m_Tiles[x, y];
-            tile.Value = value;
-        }
-
-        private void SetValue(Vector3 worldPos, int value)
-        {
-            var gridPos = ConvertToGrid(worldPos - Offset);
-            SetValue((int)gridPos.x, (int)gridPos.y, value);
         }
 
         public Vector3 ConvertToWorld(int x, int y)

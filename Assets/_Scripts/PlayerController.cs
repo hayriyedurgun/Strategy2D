@@ -66,10 +66,9 @@ namespace Assets._Scripts
         {
             yield return new WaitForEndOfFrame();
 
-            var prefab = GameManager.Instance.ProductFactory.GetProduct(productType);
-            m_Product = Instantiate(prefab);
-            m_Product.Init();
-            m_Product.Type = productType;
+            var info = GameManager.Instance.ProductFactory.GetProductInfo(productType);
+            m_Product = Instantiate(info.ProductPrefab);
+            m_Product.Init(info);
 
             var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPos.z = 0;

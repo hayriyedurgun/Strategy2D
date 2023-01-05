@@ -17,21 +17,12 @@ namespace Assets._Scripts
 
         public Image AvailityImage;
 
-        public TextMeshPro Text;
+        public SpriteRenderer TileRenderer;
+        public Sprite OddSprite;
+        public Sprite EvenSprite;
 
         [NonSerialized]
         public ProductBehaviour Product;
-
-        private int m_Value;
-        public int Value
-        {
-            get => m_Value;
-            set
-            {
-                m_Value = value;
-                Text.text = Value.ToString();
-            }
-        }
 
         public void Init(int posX, int posY, float cellSize)
         {
@@ -39,7 +30,15 @@ namespace Assets._Scripts
             PosY = posY;
             CellSize = cellSize;
 
-            Text.text = Value.ToString();
+            if ((posX % 2 == 0 && posY % 2 != 0) ||
+                posX % 2 != 0 && posY % 2 == 0)
+            {
+                TileRenderer.sprite = EvenSprite;
+            }
+            else
+            {
+                TileRenderer.sprite = OddSprite;
+            }
         }
 
         public void SetStatus(bool canPlace)
