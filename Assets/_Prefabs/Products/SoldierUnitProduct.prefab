@@ -91,8 +91,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6715325994913942305}
-  - component: {fileID: 6715325994913942321}
   - component: {fileID: 4459002734524745743}
+  - component: {fileID: 5757265323241497836}
   m_Layer: 0
   m_Name: SoldierUnitProduct
   m_TagString: Untagged
@@ -116,20 +116,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6715325994913942321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6715325994913942334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3206e8a1fcbe405458840d8d54a4c111, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RayTransforms:
-  - {fileID: 6434084475424889942}
 --- !u!61 &4459002734524745743
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -156,6 +142,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5757265323241497836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6715325994913942334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f48ac27fd4f054d88ce7bfa22d20c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  RayTransforms:
+  - {fileID: 6434084475424889942}
 --- !u!1 &7652457768385944727
 GameObject:
   m_ObjectHideFlags: 0

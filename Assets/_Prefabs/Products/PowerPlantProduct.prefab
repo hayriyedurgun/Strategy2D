@@ -378,8 +378,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6715325994913942305}
-  - component: {fileID: 6715325994913942321}
   - component: {fileID: 9031730273591890879}
+  - component: {fileID: 7876120206963225817}
   m_Layer: 0
   m_Name: PowerPlantProduct
   m_TagString: Untagged
@@ -402,25 +402,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6715325994913942321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6715325994913942334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3206e8a1fcbe405458840d8d54a4c111, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RayTransforms:
-  - {fileID: 6434084475424889942}
-  - {fileID: 3129127913565932577}
-  - {fileID: 6764228254070978588}
-  - {fileID: 3670202270465272989}
-  - {fileID: 4966626880729534993}
-  - {fileID: 5105784912242207811}
 --- !u!61 &9031730273591890879
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -447,6 +428,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 3}
   m_EdgeRadius: 0
+--- !u!114 &7876120206963225817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6715325994913942334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f48ac27fd4f054d88ce7bfa22d20c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  RayTransforms:
+  - {fileID: 6434084475424889942}
+  - {fileID: 3129127913565932577}
+  - {fileID: 6764228254070978588}
+  - {fileID: 3670202270465272989}
+  - {fileID: 4966626880729534993}
+  - {fileID: 5105784912242207811}
 --- !u!1 &6715325995397094211
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +684,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222985766338916013}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

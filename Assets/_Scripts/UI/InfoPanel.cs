@@ -13,23 +13,22 @@ namespace Assets._Scripts.UI
     {
         public TextMeshProUGUI Header;
         public Image Image;
-        private ProductBehaviour m_Product;
+        private BaseProduct m_Product;
         public RectTransform ProductionParent;
 
         public Image ProductionImage;
         public Button ProductionButton;
-        //public TextMeshProUGUI SecsToSpawn;
+        public TextMeshProUGUI SecsToSpawn;
 
-        [NonSerialized]
-        public bool HasProduction;
+        public bool HasProduction => m_Product is BarrackProduct;
 
         private void Update()
         {
             if (gameObject.activeInHierarchy && HasProduction)
             {
-                //ProductionButton.interactable = m_Product.SecondsToSpawn <= 0;
-                //SecsToSpawn.gameObject.SetActive(m_Product.SecondsToSpawn <= 0);
-                //SecsToSpawn.SetText(m_Product.SecondsToSpawn.ToString());
+                ProductionButton.interactable = (m_Product as BarrackProduct).SecondsToSpawn <= 0;
+                SecsToSpawn.gameObject.SetActive((m_Product as BarrackProduct).SecondsToSpawn <= 0);
+                SecsToSpawn.SetText((m_Product as BarrackProduct).SecondsToSpawn.ToString());
             }
         }
 
@@ -38,7 +37,7 @@ namespace Assets._Scripts.UI
             gameObject.SetActive(visible);
         }
 
-        public void Init(ProductBehaviour product)
+        public void Init(BaseProduct product)
         {
             m_Product = product;
 
@@ -46,7 +45,6 @@ namespace Assets._Scripts.UI
             Header.SetText(info.Name);
             Image.sprite = info.Sprite;
 
-            HasProduction = info.HasProduction;
             if (HasProduction)
             {
                 ProductionParent.gameObject.SetActive(true);
@@ -65,7 +63,10 @@ namespace Assets._Scripts.UI
 
         public void OnProductionPressed()
         {
-            m_Product.TryCreateProduction();
+            if (m_Product is BarrackProduct product)
+            {
+                product.CreateProduction();
+            }
         }
     }
 }

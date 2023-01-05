@@ -19,24 +19,27 @@ MonoBehaviour:
     HasProduction: 1
     ProductionType: 2
     ProductionSprite: {fileID: 21300000, guid: 2cb5b3997015e3448be0b1e6c527e44d, type: 3}
+    Cooldown: 3
     Width: 4
     Height: 4
-    ProductPrefab: {fileID: 6715325994913942321, guid: 40d67578b1a3df545b3f6bf5dc84d519, type: 3}
+    ProductPrefab: {fileID: 3054475413235105876, guid: 40d67578b1a3df545b3f6bf5dc84d519, type: 3}
   - Type: 1
     Name: Power Plant
     Sprite: {fileID: 21300000, guid: 0ed29ad20079cf04aa2ee03495b4cd48, type: 3}
     HasProduction: 0
     ProductionType: 0
     ProductionSprite: {fileID: 0}
+    Cooldown: 0
     Width: 2
     Height: 3
-    ProductPrefab: {fileID: 6715325994913942321, guid: a932ae7b2420a184f89b9bac6a856686, type: 3}
+    ProductPrefab: {fileID: 7876120206963225817, guid: a932ae7b2420a184f89b9bac6a856686, type: 3}
   - Type: 2
     Name: Soldier Unit
     Sprite: {fileID: 21300000, guid: 2cb5b3997015e3448be0b1e6c527e44d, type: 3}
     HasProduction: 0
     ProductionType: 0
     ProductionSprite: {fileID: 0}
+    Cooldown: 0
     Width: 1
     Height: 1
-    ProductPrefab: {fileID: 6715325994913942321, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}
+    ProductPrefab: {fileID: 5757265323241497836, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}
