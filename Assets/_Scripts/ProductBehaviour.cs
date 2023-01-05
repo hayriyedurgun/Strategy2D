@@ -17,6 +17,9 @@ namespace Assets._Scripts
         public int Height;
         public Transform[] RayTransforms;
 
+        [NonSerialized]
+        public ProductType Type;
+
         public Vector3 Bounds { get; private set; }
 
         public void Init()
@@ -39,13 +42,17 @@ namespace Assets._Scripts
                 hit = Physics2D.Raycast(ray.transform.position, Vector2.zero);
                 if (hit.collider)
                 {
-                    m_ColoredTiles.Add(GridManager.Instance.ConvertToTile(hit.point));
+                    var tile = GridManager.Instance.ConvertToTile(hit.point);
+                    if (tile)
+                    {
+                        m_ColoredTiles.Add(tile);
+                    }
                 }
             }
 
             if (m_ColoredTiles.Count == RayTransforms.Length)
             {
-                m_CanPlaceable = m_ColoredTiles.All(x => !x.IsOccupied);
+                m_CanPlaceable = m_ColoredTiles.All(x => x.Product == null);
                 m_ColoredTiles.ForEach(x => x.SetStatus(m_CanPlaceable));
             }
             else
@@ -61,10 +68,10 @@ namespace Assets._Scripts
                 return false;
             }
 
-            m_ColoredTiles.ForEach(x => x.IsOccupied = true);
+            m_ColoredTiles.ForEach(x => x.Product = this);
 
-            var x =  (float)m_ColoredTiles.Average(x=> x.PosX);
-            var y = (float)m_ColoredTiles.Average(x=> x.PosY);
+            var x = (float)m_ColoredTiles.Average(x => x.PosX);
+            var y = (float)m_ColoredTiles.Average(x => x.PosY);
 
             transform.position = new Vector3(x, y, 0);
             var color = Renderer.color;
@@ -76,7 +83,13 @@ namespace Assets._Scripts
 
         public void ClearTiles()
         {
-            m_ColoredTiles.ForEach(x => x.ClearStatus());
+            m_ColoredTiles.ForEach(x =>
+            {
+                if (x)
+                {
+                    x.ClearStatus();
+                }
+            });
             m_ColoredTiles.Clear();
         }
     }

@@ -15,26 +15,12 @@ namespace Assets._Scripts.UI
         public TextMeshProUGUI Text;
         public ProductType Type;
 
-        public Sprite BarrackSprite;
-        public Sprite PowerPlantSprite;
-        public Sprite SoldierUnitSprite;
-
         private void Start()
         {
-            Text.text = Type.ToString();
+            var info = GameManager.Instance.ProductFactory.GetProductInfo(Type);
 
-            if (Type == ProductType.Barrack)
-            {
-                Image.sprite = BarrackSprite;
-            }
-            else if (Type == ProductType.PowerPlant)
-            {
-                Image.sprite = PowerPlantSprite;
-            }
-            else if (Type == ProductType.SoldierUnit)
-            {
-                Image.sprite = SoldierUnitSprite;
-            }
+            Text.text = info.Name;
+            Image.sprite = info.Sprite;
         }
 
         public void OnClick()

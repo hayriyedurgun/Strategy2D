@@ -20,23 +20,7 @@ namespace Assets._Scripts
         public TextMeshPro Text;
 
         [NonSerialized]
-        private bool m_IsOccupied;
-        public bool IsOccupied
-        {
-            get => m_IsOccupied;
-            set
-            {
-                m_IsOccupied = value;
-                if (m_IsOccupied)
-                {
-                    Value = 1;
-                }
-                else
-                {
-                    Value = 0;
-                }
-            }
-        }
+        public ProductBehaviour Product;
 
         private int m_Value;
         public int Value

@@ -1198,6 +1198,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4634771344259913681, guid: 02ee3fc10e24b974ba7800f00388a1ba, type: 3}
+      propertyPath: m_Height
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634771344259913681, guid: 02ee3fc10e24b974ba7800f00388a1ba, type: 3}
       propertyPath: m_CellSize
       value: 1
       objectReference: {fileID: 0}

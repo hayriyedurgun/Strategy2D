@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.Managers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -87,6 +88,12 @@ namespace Assets._Scripts
             }
 
             return m_Tiles[x, y];
+        }
+
+        public void Resize()
+        {
+            //Width = (Screen.width - GUIManager.Instance.ProductPanel.sizeDelta.x) / CellSize;
+            //Height = Screen.width / CellSize;
         }
     }
 }

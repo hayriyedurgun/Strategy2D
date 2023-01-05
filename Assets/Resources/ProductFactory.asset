@@ -12,6 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2e6385a6b67b646911fdc58671f7ab, type: 3}
   m_Name: ProductFactory
   m_EditorClassIdentifier: 
-  BarrackPrefab: {fileID: 6715325994913942321, guid: 40d67578b1a3df545b3f6bf5dc84d519, type: 3}
-  PowerPlantPrefab: {fileID: 6715325994913942321, guid: a932ae7b2420a184f89b9bac6a856686, type: 3}
-  SoldierUnitPrefab: {fileID: 6715325994913942321, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}
+  Products:
+  - Type: 0
+    Name: Barrack
+    Sprite: {fileID: 21300000, guid: ea1c3cc273e5e3d498a66216e63667b3, type: 3}
+    HasProduct: 1
+    ProductSprite: {fileID: 21300000, guid: 0b1eaa0a6e89d354dbea566e1312be7c, type: 3}
+    ProductPrefab: {fileID: 6715325994913942321, guid: 40d67578b1a3df545b3f6bf5dc84d519, type: 3}
+  - Type: 1
+    Name: Power Plant
+    Sprite: {fileID: 21300000, guid: 0ed29ad20079cf04aa2ee03495b4cd48, type: 3}
+    HasProduct: 0
+    ProductSprite: {fileID: 0}
+    ProductPrefab: {fileID: 6715325994913942321, guid: a932ae7b2420a184f89b9bac6a856686, type: 3}
+  - Type: 2
+    Name: Soldier Unit
+    Sprite: {fileID: 21300000, guid: 2cb5b3997015e3448be0b1e6c527e44d, type: 3}
+    HasProduct: 0
+    ProductSprite: {fileID: 0}
+    ProductPrefab: {fileID: 6715325994913942321, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}
