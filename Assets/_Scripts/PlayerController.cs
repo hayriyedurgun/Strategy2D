@@ -48,7 +48,7 @@ namespace Assets._Scripts
                         var tile = GridManager.Instance.ConvertToTile(hit.point);
                         if (tile && tile.Product != null)
                         {
-                            GUIManager.Instance.InfoPanel.Init(tile.Product.Type);
+                            GUIManager.Instance.InfoPanel.Init(tile.Product);
                             GUIManager.Instance.InfoPanel.SetVisibility(true);  
                         }
                     }

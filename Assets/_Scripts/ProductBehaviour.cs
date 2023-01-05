@@ -10,12 +10,27 @@ namespace Assets._Scripts
     public class ProductBehaviour : MonoBehaviour
     {
         private List<TileBehaviour> m_ColoredTiles = new List<TileBehaviour>();
-        private bool m_CanPlaceable;
-        public Transform[] RayTransforms;
-
-        [NonSerialized]
-        public ProductType Type;
         private List<SpriteRenderer> m_Renderers;
+        private bool m_HasProduction;
+        private ProductType m_ProductionType;
+        private bool m_CanPlaceable;
+
+        private float m_Time;
+
+        public ProductType Type;
+        public float SpawnCooldown = 2;
+        public Transform[] RayTransforms;
+        public Transform SpawnTransform;
+
+        //public int SecondsToSpawn => Mathf.CeilToInt(m_Time);
+
+        private void Update()
+        {
+            if (m_HasProduction && m_Time < SpawnCooldown)
+            {
+                m_Time += Time.deltaTime;
+            }
+        }
 
         public void Init(ProductInfo info)
         {
@@ -29,7 +44,13 @@ namespace Assets._Scripts
             }
 
             Type = info.Type;
-            //transform.localScale = new Vector3(info.Width, info.Height, 1);
+            m_HasProduction = info.HasProduction;
+            if (m_HasProduction)
+            {
+                m_ProductionType = info.ProductionType;
+            }
+
+            m_Time = SpawnCooldown;
         }
 
         public void SendRay()
@@ -95,6 +116,29 @@ namespace Assets._Scripts
                 }
             });
             m_ColoredTiles.Clear();
+        }
+
+        public bool TryCreateProduction()
+        {
+            if (m_HasProduction && m_Time >= SpawnCooldown)
+            {
+                m_Time = 0;
+                Spawn();
+                return true;
+            }
+
+            return false;
+        }
+
+        private void Spawn()
+        {
+            var tile = GridManager.Instance.ConvertToTile(SpawnTransform.position);
+
+            var prefab = GameManager.Instance.ProductFactory.GetProduct(m_ProductionType);
+            var production = Instantiate(prefab);
+
+            tile.Product = production;
+            production.transform.position = GridManager.Instance.ConvertToWorld(tile.PosX, tile.PosY);
         }
     }
 }

@@ -36,8 +36,9 @@ namespace Assets._Scripts
         public ProductType Type;
         public string Name;
         public Sprite Sprite;
-        public bool HasProduct;
-        public Sprite ProductSprite;
+        public bool HasProduction;
+        public ProductType ProductionType;
+        public Sprite ProductionSprite;
 
         public int Width;
         public int Height;

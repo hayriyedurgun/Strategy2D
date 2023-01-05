@@ -53,7 +53,7 @@ namespace Assets._Scripts
 
         public Vector3 ConvertToWorld(int x, int y)
         {
-            return new Vector3(x * CellSize, y * CellSize, 0) - Offset;
+            return new Vector3(x * CellSize, y * CellSize, 0) + Offset;
         }
 
         public Vector3 ConvertToGrid(Vector3 wordPos)

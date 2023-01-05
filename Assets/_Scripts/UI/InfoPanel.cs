@@ -13,27 +13,44 @@ namespace Assets._Scripts.UI
     {
         public TextMeshProUGUI Header;
         public Image Image;
-
+        private ProductBehaviour m_Product;
         public RectTransform ProductionParent;
+
         public Image ProductionImage;
+        public Button ProductionButton;
+        //public TextMeshProUGUI SecsToSpawn;
+
         [NonSerialized]
-        public bool HasProduct;
-        
+        public bool HasProduction;
+
+        private void Update()
+        {
+            if (gameObject.activeInHierarchy && HasProduction)
+            {
+                //ProductionButton.interactable = m_Product.SecondsToSpawn <= 0;
+                //SecsToSpawn.gameObject.SetActive(m_Product.SecondsToSpawn <= 0);
+                //SecsToSpawn.SetText(m_Product.SecondsToSpawn.ToString());
+            }
+        }
+
         public void SetVisibility(bool visible)
         {
             gameObject.SetActive(visible);
         }
 
-        public void Init(ProductType type)
+        public void Init(ProductBehaviour product)
         {
-            var info = GameManager.Instance.ProductFactory.GetProductInfo(type);
+            m_Product = product;
+
+            var info = GameManager.Instance.ProductFactory.GetProductInfo(m_Product.Type);
             Header.SetText(info.Name);
             Image.sprite = info.Sprite;
-            HasProduct = info.HasProduct;
-            if (HasProduct)
+
+            HasProduction = info.HasProduction;
+            if (HasProduction)
             {
                 ProductionParent.gameObject.SetActive(true);
-                ProductionImage.sprite = info.ProductSprite;
+                ProductionImage.sprite = info.ProductionSprite;
             }
             else
             {
@@ -44,6 +61,11 @@ namespace Assets._Scripts.UI
         public void OnClosePressed()
         {
             SetVisibility(false);
+        }
+
+        public void OnProductionPressed()
+        {
+            m_Product.TryCreateProduction();
         }
     }
 }

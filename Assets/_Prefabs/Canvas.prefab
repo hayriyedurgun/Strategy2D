@@ -253,7 +253,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8773697645203732894}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2200629514068192360}
+        m_TargetAssemblyTypeName: Assets._Scripts.UI.InfoPanel, Assembly-CSharp
+        m_MethodName: OnProductionPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1663682821674768275
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +708,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.35
+  m_fontSize: 33.05
   m_fontSizeBase: 25.5
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1097,6 +1109,7 @@ MonoBehaviour:
   Image: {fileID: 7830629954327628781}
   ProductionParent: {fileID: 6055511692533163109}
   ProductionImage: {fileID: 8773697645203732894}
+  ProductionButton: {fileID: 2350952772589691072}
 --- !u!1 &4920469403997433403
 GameObject:
   m_ObjectHideFlags: 0
