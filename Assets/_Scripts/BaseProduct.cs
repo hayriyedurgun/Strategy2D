@@ -74,15 +74,25 @@ namespace Assets._Scripts
 
         public bool TryPlace()
         {
-            if (m_ColoredTiles.Any(x=> !x.IsAvailable))
+            if (!m_ColoredTiles.Any() || 
+                m_ColoredTiles.Any(x => !x.IsAvailable))
             {
                 return false;
             }
 
             m_ColoredTiles.ForEach(x => x.Product = this);
+            float x;
+            float y;
+            try
+            {
+                x = (float)m_ColoredTiles.Average(x => x.transform.position.x);
+                y = (float)m_ColoredTiles.Average(x => x.transform.position.y);
+            }
+            catch (InvalidOperationException e)
+            {
 
-            var x = (float)m_ColoredTiles.Average(x => x.transform.position.x);
-            var y = (float)m_ColoredTiles.Average(x => x.transform.position.y);
+                throw;
+            }
 
             transform.position = new Vector3(x, y, 0);
 

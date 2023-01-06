@@ -160,100 +160,6 @@ namespace Assets._Scripts
             }
         }
 
-        //private List<TileBehaviour> RetracePath(TileBehaviour startTile, TileBehaviour endTile)
-        //{
-        //    // Create a list to store the path
-        //    var path = new List<TileBehaviour>();
-
-        //    // Set the current node to the end tile
-        //    var currentNode = endTile;
-
-        //    // Loop until the current node is the start tile
-        //    while (currentNode != startTile)
-        //    {
-        //        // Add the current node to the path
-        //        path.Add(currentNode);
-
-        //        // Set the current node to its parent
-        //        currentNode = currentNode.Parent;
-        //    }
-
-        //    // Reverse the list to order the path from start to end
-        //    path.Reverse();
-
-        //    // Return the path
-        //    return path;
-        //}
-
-        //public List<TileBehaviour> FindPath(Vector3 startPos, Vector3 endPos)
-        //{
-        //    // Convert the start and end positions to grid coordinates
-        //    var startTile = ConvertToTile(startPos);
-        //    var endTile = ConvertToTile(endPos);
-
-        //    // Create lists for open and closed nodes
-        //    var openNodes = new List<TileBehaviour>();
-        //    var closedNodes = new List<TileBehaviour>();
-
-        //    // Add the start tile to the open list
-        //    openNodes.Add(startTile);
-
-        //    // Loop until the open list is empty
-        //    while (openNodes.Count > 0)
-        //    {
-        //        // Find the node with the lowest F cost
-        //        var currentNode = openNodes[0];
-        //        for (int i = 1; i < openNodes.Count; i++)
-        //        {
-        //            if (openNodes[i].FCost < currentNode.FCost ||
-        //                (openNodes[i].FCost == currentNode.FCost && openNodes[i].HCost < currentNode.HCost))
-        //            {
-        //                currentNode = openNodes[i];
-        //            }
-        //        }
-
-        //        // Remove the current node from the open list and add it to the closed list
-        //        openNodes.Remove(currentNode);
-        //        closedNodes.Add(currentNode);
-
-        //        // If the current node is the end node, return the path
-        //        if (currentNode == endTile)
-        //        {
-        //            return RetracePath(startTile, endTile);
-        //        }
-
-        //        // Get a list of the current node's neighbors
-        //        var neighbors = GetNeighbors(currentNode);
-        //        foreach (var neighbor in neighbors)
-        //        {
-        //            // Skip neighbors that are already in the closed list
-        //            if (closedNodes.Contains(neighbor))
-        //            {
-        //                continue;
-        //            }
-
-        //            // Calculate the cost to move to the neighbor
-        //            var moveCost = currentNode.GCost + currentNode.GetDistance(neighbor);
-
-        //            // If the neighbor is not in the open list, or the new cost is lower than the current cost, update the neighbor's values and add it to the open list
-        //            if (!openNodes.Contains(neighbor) || moveCost < neighbor.GCost)
-        //            {
-        //                neighbor.GCost = moveCost;
-        //                neighbor.HCost = neighbor.GetDistance(endTile);
-        //                //neighbor.Parent = currentNode;
-
-        //                if (!openNodes.Contains(neighbor))
-        //                {
-        //                    openNodes.Add(neighbor);
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    // If no path was found, return an empty list
-        //    return new List<TileBehaviour>();
-        //}
-
         public List<TileBehaviour> FindPath(TileBehaviour startTile, TileBehaviour endTile)
         {
             // Create lists for open and closed nodes
@@ -296,12 +202,12 @@ namespace Assets._Scripts
                         continue;
                     }
 
-                    var tempGCost = currentTile.GCost + CalculateDistance(currentTile, neighborTile);
+                    var tempGCost = currentTile.GCost + currentTile.GetDistance(neighborTile);
                     if (tempGCost < neighborTile.GCost)
                     {
                         neighborTile.PreviousTile = currentTile;
                         neighborTile.GCost = tempGCost;
-                        neighborTile.HCost = CalculateDistance(neighborTile, endTile);
+                        neighborTile.HCost = neighborTile.GetDistance(endTile);
 
                         if (!openTiles.Contains(neighborTile))
                         {

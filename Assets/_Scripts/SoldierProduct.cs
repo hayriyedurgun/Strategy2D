@@ -9,13 +9,45 @@ namespace Assets._Scripts
 {
     public class SoldierProduct : BaseProduct
     {
-        private bool m_IsMoving;
+        private int m_CurrentPathIndex;
+        private List<TileBehaviour> m_Path;
+        private TileBehaviour m_Target;
 
-        public Vector3 Target;
+        public GamePlaySettings Settings => GameManager.Instance.GamePlaySettings;
 
-        private void Update()
+        public override void Update()
         {
-            
+            base.Update();
+
+            if (m_Path != null)
+            {
+                if (Vector2.Distance(transform.position, m_Target.transform.position) > 0.05)
+                {
+                    var direction = (m_Target.transform.position - transform.position).normalized;
+                    transform.position += direction * Settings.MovementSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    m_CurrentPathIndex++;
+                    if (m_CurrentPathIndex >= m_Path.Count)
+                    {
+                        m_Target.Product = this;
+                        m_Target.ClearStatus();
+                        m_Path = null;
+                    }
+                    else
+                    {
+                        m_Target = m_Path[m_CurrentPathIndex];
+                    }
+                }
+            }
+        }
+
+        public void SetTarget(List<TileBehaviour> path)
+        {
+            m_CurrentPathIndex = 0;
+            m_Path = path;
+            m_Target = m_Path[m_CurrentPathIndex];
         }
     }
 }

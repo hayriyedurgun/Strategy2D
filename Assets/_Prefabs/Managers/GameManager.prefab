@@ -45,3 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   ProductFactory: {fileID: 11400000, guid: 3985cd5dca6863b409a496f51ae6b610, type: 2}
+  GamePlaySettings: {fileID: 11400000, guid: f7ae1320997b7bd4b94587d6316b662f, type: 2}

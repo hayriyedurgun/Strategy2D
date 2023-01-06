@@ -17,6 +17,8 @@ namespace Assets._Scripts
 
         public ProductFactory ProductFactory;
 
+        public GamePlaySettings GamePlaySettings;
+
         private void Awake()
         {
             m_Instance = this;

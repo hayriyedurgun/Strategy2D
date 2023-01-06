@@ -17,7 +17,7 @@ namespace Assets._Scripts
         public Sprite OddSprite;
         public Sprite EvenSprite;
 
-        public TextMeshPro Text; 
+        public TextMeshPro Text;
 
         [NonSerialized]
         public BaseProduct Product;
@@ -27,7 +27,9 @@ namespace Assets._Scripts
         public int HCost;
         [NonSerialized]
         public TileBehaviour PreviousTile;
-        
+
+        public GamePlaySettings Settings => GameManager.Instance.GamePlaySettings;
+
         public int FCost => GCost + HCost;
 
         private bool m_IsAvailable;
@@ -39,6 +41,11 @@ namespace Assets._Scripts
                 m_IsAvailable = value;
                 Text.SetText(m_IsAvailable ? "0" : "1");
             }
+        }
+
+        private void Update()
+        {
+            Text.gameObject.SetActive(Settings.IsDebugMode);
         }
 
         public void Init(int posX, int posY, float cellSize)
@@ -58,6 +65,7 @@ namespace Assets._Scripts
             }
 
             IsAvailable = true;
+            Text.gameObject.SetActive(Settings.IsDebugMode);
         }
 
         public void SetStatus(bool canPlace)
@@ -85,10 +93,13 @@ namespace Assets._Scripts
             HCost = 0;
         }
 
-        public void SetPurple()
+        public void SetDebugStatus()
         {
-            AvailityImage.gameObject.SetActive(true);
-            AvailityImage.color = new Color(.5f, 0, .5f, .6f);
+            if (Settings.IsDebugMode)
+            {
+                AvailityImage.gameObject.SetActive(true);
+                AvailityImage.color = new Color(.5f, 0, .5f, .6f);
+            }
         }
 
         public void Clear()

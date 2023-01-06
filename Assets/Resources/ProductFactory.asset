@@ -42,4 +42,4 @@ MonoBehaviour:
     Cooldown: 0
     Width: 1
     Height: 1
-    ProductPrefab: {fileID: 5757265323241497836, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}
+    ProductPrefab: {fileID: 2764898469508254118, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}

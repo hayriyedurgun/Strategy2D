@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6715325994913942305}
   - component: {fileID: 4459002734524745743}
-  - component: {fileID: 5757265323241497836}
+  - component: {fileID: 2764898469508254118}
   m_Layer: 0
   m_Name: SoldierUnitProduct
   m_TagString: Untagged
@@ -142,7 +142,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5757265323241497836
+--- !u!114 &2764898469508254118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,12 +151,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6715325994913942334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65f48ac27fd4f054d88ce7bfa22d20c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a5e800359534a44aaeb8ab507ad4be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
   RayTransforms:
   - {fileID: 6434084475424889942}
+  Speed: 5
 --- !u!1 &7652457768385944727
 GameObject:
   m_ObjectHideFlags: 0

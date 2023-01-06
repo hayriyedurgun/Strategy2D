@@ -66,9 +66,14 @@ namespace Assets._Scripts
                     var endTile = GridManager.Instance.ConvertToTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                     var path = GridManager.Instance.FindPath(m_SelectedTile, endTile);
 
-                    if (path != null)
+                    if (m_SelectedTile.Product is SoldierProduct product &&
+                        path != null &&
+                        path.Any())
                     {
-                        path.ForEach(x=> x.SetPurple());
+                        m_SelectedTile.Product = null;
+                        m_SelectedTile.ClearStatus();
+                        product.SetTarget(path);
+                        path.ForEach(x => x.SetDebugStatus());
                     }
                 }
             }
