@@ -9,10 +9,9 @@ namespace Assets._Scripts
 {
     public class BarrackProduct : BaseProduct
     {
-        private ProductType m_ProductionType;
         private float m_CurrentTime;
         private float m_CoolDown;
-        private BaseProduct m_ProductPrefab;
+        private BaseProduct m_ProductionPrefab;
 
         public Transform SpawnTransform;
 
@@ -22,20 +21,22 @@ namespace Assets._Scripts
         {
             base.Initialize(info);
 
-            m_ProductionType = info.ProductionType;
             m_CoolDown = info.Cooldown;
-            m_ProductPrefab = info.ProductPrefab;
+            m_ProductionPrefab = info.ProductionPrefab;
 
-            //TODO: COOLDOWN LOGICS
-            m_CurrentTime = m_CoolDown;
+            m_CurrentTime = 0;
         }
 
         public override void Update()
         {
             base.Update();
-            if (m_CurrentTime < m_CoolDown)
+            if (m_CurrentTime > 0)
             {
-                m_CurrentTime += Time.deltaTime;
+                m_CurrentTime -= Time.deltaTime;
+                if (m_CurrentTime < 0)
+                {
+                    m_CurrentTime = 0;
+                }
             }
         }
 
@@ -55,11 +56,12 @@ namespace Assets._Scripts
                 if (tile == null) return;
             }
 
-            var production = Instantiate(m_ProductPrefab);
+            var production = Instantiate(m_ProductionPrefab);
             tile.Product = production;
-
             production.transform.position = GridManager.Instance.ConvertToWorld(tile.PosX, tile.PosY);
-            m_CurrentTime = 0;
+            tile.ClearStatus();
+
+            m_CurrentTime = m_CoolDown;
         }
     }
 }

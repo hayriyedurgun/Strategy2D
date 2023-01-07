@@ -18,17 +18,16 @@ namespace Assets._Scripts.UI
 
         public Image ProductionImage;
         public Button ProductionButton;
-        public TextMeshProUGUI SecsToSpawn;
 
         public bool HasProduction => m_Product is BarrackProduct;
 
         private void Update()
         {
-            if (gameObject.activeInHierarchy && HasProduction)
+            if (gameObject.activeInHierarchy && 
+                HasProduction && 
+                m_Product is BarrackProduct barrackProduct)
             {
-                ProductionButton.interactable = (m_Product as BarrackProduct).SecondsToSpawn <= 0;
-                SecsToSpawn.gameObject.SetActive((m_Product as BarrackProduct).SecondsToSpawn <= 0);
-                SecsToSpawn.SetText((m_Product as BarrackProduct).SecondsToSpawn.ToString());
+                ProductionButton.interactable = barrackProduct.SecondsToSpawn <= 0;
             }
         }
 

@@ -36,14 +36,16 @@ namespace Assets._Scripts
         public ProductType Type;
         public string Name;
         public Sprite Sprite;
+        public BaseProduct ProductPrefab;
+
         public bool HasProduction;
         public ProductType ProductionType;
         public Sprite ProductionSprite;
         public float Cooldown;
+        public BaseProduct ProductionPrefab;
 
         public int Width;
         public int Height;
 
-        public BaseProduct ProductPrefab;
     }
 }
