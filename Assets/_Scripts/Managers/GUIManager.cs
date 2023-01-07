@@ -39,7 +39,7 @@ namespace Assets._Scripts.Managers
         private void OnWindowResized()
         {
             //GridManager.Instance.Resize();
-            Debug.Log("** Resized!!");
+            //Debug.Log("** Resized!!");
         }
     }
 }

@@ -14,5 +14,6 @@ namespace Assets._Scripts
 
         public float MovementSpeed = 5;
 
+        public float Threshold = .1f;
     }
 }

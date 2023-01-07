@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDebugMode: 1
   MovementSpeed: 5
+  Threshold: 0.1
