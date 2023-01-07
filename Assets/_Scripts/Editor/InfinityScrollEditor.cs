@@ -8,18 +8,25 @@ using UnityEngine;
 [CustomEditor(typeof(InfinityScroll), true)]
 public class InfinityScrollEditor : ScrollRectEditor
 {
-    SerializedProperty m_ItemPrefabObject;
+    //private SerializedProperty m_ItemPrefabsObject;
+    private SerializedProperty m_Pool;
 
     protected override void OnEnable()
     {
-        m_ItemPrefabObject = serializedObject.FindProperty(nameof(InfinityScroll.ItemPrefab));
+        //m_ItemPrefabsObject = serializedObject.FindProperty(nameof(InfinityScroll.ItemPrefabs));
+        m_Pool = serializedObject.FindProperty(nameof(InfinityScroll.Pool));
 
         base.OnEnable();
     }
 
     public override void OnInspectorGUI()
     {
-        EditorGUILayout.PropertyField(m_ItemPrefabObject);
+        serializedObject.Update();
+
+        //EditorGUILayout.PropertyField(m_ItemPrefabsObject);
+        EditorGUILayout.PropertyField(m_Pool);
+
+        serializedObject.ApplyModifiedProperties();
 
         base.OnInspectorGUI();
     }

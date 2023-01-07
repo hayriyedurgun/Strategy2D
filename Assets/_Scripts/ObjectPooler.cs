@@ -9,12 +9,15 @@ namespace Assets._Scripts
 {
     public abstract class ObjectPooler<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private List<T> m_PooledObjects;
+        protected List<T> m_ActiveItems;
+        protected List<T> m_PooledItems;
+
+        protected int m_Counter;
 
         private static ObjectPooler<T> m_Instance = null;
         public static ObjectPooler<T> Instance => m_Instance;
 
-        public T ObjectToPool;
+        public List<T> ObjectsToPool;
 
         public Transform ItemsParent;
 
@@ -30,41 +33,59 @@ namespace Assets._Scripts
 
         public T GetObject()
         {
-            foreach (var obj in m_PooledObjects)
-            {
-                if (!obj.gameObject.activeInHierarchy)
-                {
-                    return obj;
-                }
-            }
+            if (!ObjectsToPool.Any()) throw new NotImplementedException("Object to pool list empty!");
 
-            //for dynamic pooling
-            var temp = Instantiate(ObjectToPool);
-            temp.gameObject.SetActive(false);
-            m_PooledObjects.Add(temp);
+            T temp;
+            if (m_PooledItems.Any())
+            {
+                temp = m_PooledItems.First();
+
+                m_ActiveItems.Add(temp);
+                m_PooledItems.Remove(temp);
+            }
+            else
+            {
+                //for dynamic pooling
+                m_Counter++;
+                temp = Instantiate(ObjectsToPool[m_Counter % ObjectsToPool.Count]);
+                temp.name = m_Counter.ToString();
+                temp.transform.SetParent(ItemsParent);
+                temp.transform.localScale = Vector3.one;
+
+                m_ActiveItems.Add(temp);
+            }
 
             return temp;
         }
 
         public virtual void ReleaseObject(T obj)
         {
-            obj.gameObject.SetActive(false);
-            obj.transform.SetParent(null);
-            obj.transform.position = Vector3.zero;
+            m_ActiveItems.Remove(obj);
+            m_PooledItems.Add(obj);
         }
 
-        public void Init(int count)
+        public virtual void Init(int count)
         {
-            m_PooledObjects = new List<T>(count);
+            if (!ObjectsToPool.Any()) return;
+
+            m_PooledItems = new List<T>(count);
+            m_ActiveItems = new List<T>(count);
+
             T temp;
 
             for (int i = 0; i < count; i++)
             {
-                temp = Instantiate(ObjectToPool);
-                temp.gameObject.SetActive(false);
+                m_Counter++;
+                temp = Instantiate(ObjectsToPool[m_Counter % ObjectsToPool.Count]);
+                temp.name = m_Counter.ToString();
                 temp.transform.SetParent(ItemsParent);
+                temp.transform.localScale = Vector3.one;
 
-                m_PooledObjects.Add(temp);
+                var pos = temp.transform.localPosition;
+                pos.z = 0;
+                temp.transform.localPosition = pos;
+
+                m_PooledItems.Add(temp);
             }
         }
     }

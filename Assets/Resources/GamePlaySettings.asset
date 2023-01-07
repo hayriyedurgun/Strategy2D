@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b6e55d6fef56b44be1017423b23c53, type: 3}
   m_Name: GamePlaySettings
   m_EditorClassIdentifier: 
-  IsDebugMode: 1
+  IsDebugMode: 0
   MovementSpeed: 5
   Threshold: 0.1

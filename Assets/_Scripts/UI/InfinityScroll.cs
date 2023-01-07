@@ -10,22 +10,21 @@ namespace Assets._Scripts.UI
     [RequireComponent(typeof(ScrollController))]
     public class InfinityScroll : ScrollRect
     {
-        public List<ProductItem> ItemPrefab;
+        //public List<ProductItem> ItemPrefabs;
+        public ProductItemPool Pool;
 
-        public float CountIncrementer = 1f;
         private float m_ScrollRatio;
         private float m_UpperLimit;
         private float m_LowerLimit;
         private float m_ViewPortHeight;
         private float m_ItemHeight;
         private List<ProductItem> m_Items = new List<ProductItem>();
-        private bool m_Calculated;
-        private int m_Counter;
-        private bool m_Dragging;
+        private bool m_IsHeightCalculated;
+        private bool m_DraggingNow;
 
         private void Update()
         {
-            if (!m_Calculated && content.rect.height != 0)
+            if (!m_IsHeightCalculated && content.rect.height != 0)
             {
                 m_ScrollRatio = m_ItemHeight / (content.rect.height - m_ViewPortHeight);
 
@@ -33,11 +32,11 @@ namespace Assets._Scripts.UI
                 m_LowerLimit = 3 * m_ScrollRatio;
 
                 verticalNormalizedPosition = m_UpperLimit;
-                m_Calculated = true;
+                m_IsHeightCalculated = true;
             }
 
 
-            if (!m_Calculated) return;
+            if (!m_IsHeightCalculated) return;
 
             if (verticalNormalizedPosition > m_UpperLimit)
             {
@@ -45,15 +44,13 @@ namespace Assets._Scripts.UI
                 if (floatVal > GameManager.Instance.GamePlaySettings.Threshold)
                 {
                     var count = Mathf.CeilToInt(floatVal) * 2;
-                    Debug.Log($"** count: {count}, norm: {verticalNormalizedPosition}, Next norm: {verticalNormalizedPosition - m_ScrollRatio * count}");
 
                     ProductItem item;
                     for (int i = 0; i < count; i++)
                     {
-                        m_Counter++;
+                        item = Pool.GetObject();
+                        item.gameObject.SetActive(true);
 
-                        item = Instantiate(ItemPrefab[m_Counter % ItemPrefab.Count], content.transform);
-                        item.name = m_Counter.ToString();
                         item.transform.SetAsFirstSibling();
                         m_Items.Insert(0, item);
                     }
@@ -62,12 +59,10 @@ namespace Assets._Scripts.UI
                     {
                         item = m_Items[m_Items.Count - 1];
                         m_Items.Remove(item);
-                        Destroy(item.gameObject);
+                        Pool.ReleaseObject(item);
                     }
 
                     CustomSetVerticalNormalizedPosition(verticalNormalizedPosition - m_ScrollRatio * (count / 2));
-                    //verticalNormalizedPosition -= m_ScrollRatio * (count / 2);
-
                 }
             }
 
@@ -81,10 +76,7 @@ namespace Assets._Scripts.UI
                     ProductItem item;
                     for (int i = 0; i < count; i++)
                     {
-                        m_Counter++;
-
-                        item = Instantiate(ItemPrefab[m_Counter % ItemPrefab.Count], content.transform);
-                        item.name = m_Counter.ToString();
+                        item = Pool.GetObject();
                         item.transform.SetAsLastSibling();
                         m_Items.Add(item);
                     }
@@ -92,33 +84,19 @@ namespace Assets._Scripts.UI
                     for (int i = 0; i < count; i++)
                     {
                         item = m_Items.FirstOrDefault();
-                        if (item)
-                        {
-                            m_Items.Remove(item);
-                            Destroy(item.gameObject);
-                        }
+                        Pool.ReleaseObject(item);
+                        m_Items.Remove(item);
                     }
+
                     CustomSetVerticalNormalizedPosition(verticalNormalizedPosition + m_ScrollRatio * (count / 2));
                 }
             }
         }
 
-        private void CreateItem(int count)
-        {
-            ProductItem item;
-            //Item item;
-            for (int i = 0; i < count; i++)
-            {
-                m_Counter++;
-
-                item = Instantiate(ItemPrefab[m_Counter % ItemPrefab.Count], content.transform);
-                item.name = m_Counter.ToString();
-                m_Items.Add(item);
-            }
-        }
-
         public void InitAwake()
         {
+            Pool.Init(50);
+
             CreateItem(6);
 
             m_ViewPortHeight = viewport.GetComponent<RectTransform>().rect.height;
@@ -139,7 +117,7 @@ namespace Assets._Scripts.UI
 
         public void CustomSetVerticalNormalizedPosition(float value)
         {
-            if (m_Dragging)
+            if (m_DraggingNow)
             {
                 float anchoredYBeforeSet = content.anchoredPosition.y;
                 SetNormalizedPosition(value, 1);
@@ -154,13 +132,24 @@ namespace Assets._Scripts.UI
         public override void OnBeginDrag(PointerEventData eventData)
         {
             base.OnBeginDrag(eventData);
-            m_Dragging = true;
+            m_DraggingNow = true;
         }
 
         public override void OnEndDrag(PointerEventData eventData)
         {
             base.OnEndDrag(eventData);
-            m_Dragging = false;
+            m_DraggingNow = false;
+        }
+
+        private void CreateItem(int count)
+        {
+            ProductItem item;
+            for (int i = 0; i < count; i++)
+            {
+                item = Pool.GetObject();
+                item.gameObject.SetActive(true);
+                m_Items.Add(item);
+            }
         }
     }
 }
