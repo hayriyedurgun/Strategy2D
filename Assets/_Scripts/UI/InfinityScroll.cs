@@ -77,7 +77,6 @@ namespace Assets._Scripts.UI
                 if (floatVal > GameManager.Instance.GamePlaySettings.Threshold)
                 {
                     var count = Mathf.CeilToInt(floatVal) * 2;
-                    Debug.Log($"** count: {count}, norm: {verticalNormalizedPosition}, Next norm: {verticalNormalizedPosition + m_ScrollRatio * count}");
 
                     ProductItem item;
                     for (int i = 0; i < count; i++)
@@ -118,23 +117,6 @@ namespace Assets._Scripts.UI
             }
         }
 
-        //public override void OnDrag(PointerEventData eventData)
-        //{
-        //    if (eventData.button != PointerEventData.InputButton.Left)
-        //        return;
-
-        //    if (!IsActive())
-        //        return;
-
-        //    Vector2 localCursor;
-        //    if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(viewRect, eventData.position, eventData.pressEventCamera, out localCursor))
-        //        return;
-
-        //    m_ContentStartPosition = content.anchoredPosition;
-
-        //    base.OnDrag(eventData);
-        //}
-
         public void InitAwake()
         {
             CreateItem(6);
@@ -164,7 +146,9 @@ namespace Assets._Scripts.UI
                 m_ContentStartPosition += new Vector2(0f, content.anchoredPosition.y - anchoredYBeforeSet);
             }
             else
+            {
                 SetNormalizedPosition(value, 1);
+            }
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
