@@ -13,6 +13,7 @@ namespace Assets._Scripts
         private List<TileBehaviour> m_Path;
         private TileBehaviour m_Target;
 
+        public Animator Animator;
         public GamePlaySettings Settings => GameManager.Instance.GamePlaySettings;
 
         public override void Update()
@@ -34,6 +35,7 @@ namespace Assets._Scripts
                         m_Target.Product = this;
                         m_Target.ClearStatus();
                         m_Path = null;
+                        Animator.SetBool("IsWalking", false);
                     }
                     else
                     {
@@ -45,6 +47,8 @@ namespace Assets._Scripts
 
         public void SetTarget(List<TileBehaviour> path)
         {
+            Animator.SetBool("IsWalking", true);
+
             m_CurrentPathIndex = 0;
             m_Path = path;
             m_Target = m_Path[m_CurrentPathIndex];

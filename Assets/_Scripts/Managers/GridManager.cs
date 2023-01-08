@@ -21,7 +21,7 @@ namespace Assets._Scripts
 
         public TileBehaviour TilePrefab;
 
-        public Vector3 Offset { get; } = new Vector3(-6.5f, -3.5f, 0);
+        public Vector3 Offset { get; } = new Vector3(-6.5f, -10.5f, 0);
 
         private static GridManager m_Instance = null;
         public static GridManager Instance => m_Instance;

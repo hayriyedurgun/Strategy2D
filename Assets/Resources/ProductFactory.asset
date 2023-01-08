@@ -15,18 +15,18 @@ MonoBehaviour:
   Products:
   - Type: 0
     Name: Barrack
-    Sprite: {fileID: 21300000, guid: ea1c3cc273e5e3d498a66216e63667b3, type: 3}
+    Sprite: {fileID: 5861926880465719778, guid: 11aa1bacb3bc0ba4ebc7d0049a7ac6f9, type: 3}
     ProductPrefab: {fileID: 3054475413235105876, guid: 40d67578b1a3df545b3f6bf5dc84d519, type: 3}
     HasProduction: 1
     ProductionType: 2
-    ProductionSprite: {fileID: 21300000, guid: 2cb5b3997015e3448be0b1e6c527e44d, type: 3}
+    ProductionSprite: {fileID: 6195530534402757937, guid: 94eb02b70ec8f944ba5de3d29c79608e, type: 3}
     Cooldown: 3
     ProductionPrefab: {fileID: 2764898469508254118, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}
     Width: 4
     Height: 4
   - Type: 1
     Name: Power Plant
-    Sprite: {fileID: 21300000, guid: 0ed29ad20079cf04aa2ee03495b4cd48, type: 3}
+    Sprite: {fileID: 4434440524606813985, guid: 11aa1bacb3bc0ba4ebc7d0049a7ac6f9, type: 3}
     ProductPrefab: {fileID: 7876120206963225817, guid: a932ae7b2420a184f89b9bac6a856686, type: 3}
     HasProduction: 0
     ProductionType: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     Height: 3
   - Type: 2
     Name: Soldier Unit
-    Sprite: {fileID: 21300000, guid: 2cb5b3997015e3448be0b1e6c527e44d, type: 3}
+    Sprite: {fileID: 6195530534402757937, guid: 94eb02b70ec8f944ba5de3d29c79608e, type: 3}
     ProductPrefab: {fileID: 2764898469508254118, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}
     HasProduction: 0
     ProductionType: 0
