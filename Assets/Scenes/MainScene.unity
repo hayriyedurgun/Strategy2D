@@ -301,7 +301,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1156826343642553872, guid: 0be113bf8e4396042a8b4d987c843de6, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: InputController
       objectReference: {fileID: 0}
     - target: {fileID: 1156826343642553902, guid: 0be113bf8e4396042a8b4d987c843de6, type: 3}
       propertyPath: m_RootOrder
@@ -503,6 +503,10 @@ PrefabInstance:
     - target: {fileID: 2159659861795278538, guid: d8e997b3a61db0a40979c445a3aa6791, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -37.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159659862311779083, guid: d8e997b3a61db0a40979c445a3aa6791, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -37.100006
       objectReference: {fileID: 0}
     - target: {fileID: 2159659862405491969, guid: d8e997b3a61db0a40979c445a3aa6791, type: 3}
       propertyPath: m_Pivot.x

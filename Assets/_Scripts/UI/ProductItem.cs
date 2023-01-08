@@ -25,7 +25,7 @@ namespace Assets._Scripts.UI
 
         public void OnClick()
         {
-            GameManager.Instance.Player.SetProduct(Type);
+            GameManager.Instance.InputController.SetProduct(Type);
         }
     }
 }

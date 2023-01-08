@@ -13,7 +13,7 @@ namespace Assets._Scripts
         private static GameManager m_Instance = null;
         public static GameManager Instance => m_Instance;
 
-        public PlayerController Player;
+        public InputController InputController;
 
         public ProductFactory ProductFactory;
 

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Assets._Scripts
 {
-    public class PlayerController : MonoBehaviour
+    public class InputController : MonoBehaviour
     {
         private BaseProduct m_ProductToBeCreate;
         private TileBehaviour m_SelectedTile;
@@ -31,8 +31,6 @@ namespace Assets._Scripts
                     return;
                 }
 
-                Debug.Log($"** Delta: {Input.mouseScrollDelta}");
-
                 m_ProductToBeCreate.SendRay();
 
                 var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -52,7 +50,6 @@ namespace Assets._Scripts
                         if (tile && tile.Product != null)
                         {
                             m_SelectedTile = tile;
-                            Debug.Log($"** Selected tile is {m_SelectedTile.Product.name} now!");
                             GUIManager.Instance.InfoPanel.Init(tile.Product);
                             GUIManager.Instance.InfoPanel.SetVisibility(true);
                         }
