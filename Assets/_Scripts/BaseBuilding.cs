@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +8,13 @@ using UnityEngine;
 
 namespace Assets._Scripts
 {
-    public class BaseProduct : MonoBehaviour
+    public class BaseBuilding : MonoBehaviour
     {
         private List<SpriteRenderer> m_Renderers;
         private List<TileBehaviour> m_ColoredTiles = new List<TileBehaviour>();
 
-        public ProductType Type;
         public Transform[] RayTransforms;
+        private Building m_BuildingModel;
 
         public virtual void Awake()
         {
@@ -30,9 +31,9 @@ namespace Assets._Scripts
 
         }
 
-        public virtual void Initialize(ProductInfo info)
+        public virtual void Initialize(Building model)
         {
-            Type = info.Type;
+            m_BuildingModel = model;
         }
 
         public void SetAlpha(float alpha)

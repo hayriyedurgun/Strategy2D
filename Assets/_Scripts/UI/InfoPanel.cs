@@ -13,19 +13,19 @@ namespace Assets._Scripts.UI
     {
         public TextMeshProUGUI Header;
         public Image Image;
-        private BaseProduct m_Product;
+        private BaseBuilding m_Product;
         public RectTransform ProductionParent;
 
         public Image ProductionImage;
         public Button ProductionButton;
 
-        public bool HasProduction => m_Product is BarrackProduct;
+        public bool HasProduction => m_Product is BarrackBuilding;
 
         private void Update()
         {
             if (gameObject.activeInHierarchy && 
                 HasProduction && 
-                m_Product is BarrackProduct barrackProduct)
+                m_Product is BarrackBuilding barrackProduct)
             {
                 ProductionButton.interactable = barrackProduct.SecondsToSpawn <= 0;
             }
@@ -36,7 +36,7 @@ namespace Assets._Scripts.UI
             gameObject.SetActive(visible);
         }
 
-        public void Init(BaseProduct product)
+        public void Init(BaseBuilding product)
         {
             m_Product = product;
 
@@ -62,7 +62,7 @@ namespace Assets._Scripts.UI
 
         public void OnProductionPressed()
         {
-            if (m_Product is BarrackProduct product)
+            if (m_Product is BarrackBuilding product)
             {
                 product.CreateProduction();
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,22 +8,24 @@ using UnityEngine;
 
 namespace Assets._Scripts
 {
-    public class BarrackProduct : BaseProduct
+    public class BarrackBuilding : BaseBuilding
     {
         private float m_CurrentTime;
         private float m_CoolDown;
-        private BaseProduct m_ProductionPrefab;
+        private SoldierBuilding m_Unit;
 
         public Transform SpawnTransform;
 
         public int SecondsToSpawn => Mathf.CeilToInt(m_CurrentTime);
 
-        public override void Initialize(ProductInfo info)
+        public override void Initialize(Building model)
         {
-            base.Initialize(info);
+            base.Initialize(model);
 
-            m_CoolDown = info.Cooldown;
-            m_ProductionPrefab = info.ProductionPrefab;
+            var unitModel = GameManager.Instance.Units.FirstOrDefault(x=> x.Id == model.UnitId);
+
+            m_Unit = new SoldierBuilding();
+            m_Unit.Initialize(unitModel);
 
             m_CurrentTime = 0;
         }

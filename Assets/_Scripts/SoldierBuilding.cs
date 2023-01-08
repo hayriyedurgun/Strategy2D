@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +8,29 @@ using UnityEngine;
 
 namespace Assets._Scripts
 {
-    public class SoldierProduct : BaseProduct
+    public class SoldierBuilding : BaseBuilding
     {
         private int m_CurrentPathIndex;
         private List<TileBehaviour> m_Path;
         private TileBehaviour m_Target;
+        private Unit m_Model;
 
         public Animator Animator;
         public GamePlaySettings Settings => GameManager.Instance.GamePlaySettings;
+
+        public float CoolDown => m_Model.Cooldown;
+
+        public string Name => m_Model.Name;
+
+        public virtual void Initialize(Unit model)
+        {
+            m_Model = model;
+
+            if (m_Model.Position)
+            {
+
+            }
+        }
 
         public override void Update()
         {

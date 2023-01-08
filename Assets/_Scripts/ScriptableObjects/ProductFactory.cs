@@ -7,45 +7,39 @@ using UnityEngine;
 
 namespace Assets._Scripts
 {
-    [CreateAssetMenu(fileName = "ProductFactory", menuName = "ScriptableObjects/ProductFactory", order = 1)]
-    public class ProductFactory : ScriptableObject
-    {
-        public List<ProductInfo> Products;
+    //[CreateAssetMenu(fileName = "ProductFactory", menuName = "ScriptableObjects/ProductFactory", order = 1)]
+    //public class ProductFactory : ScriptableObject
+    //{
+    //    public List<ProductInfo> Products;
 
-        public BaseProduct GetProduct(ProductType type)
-        {
-            var info = GetProductInfo(type);
-            return info.ProductPrefab;
-        }
+    //    public ProductInfo GetProductInfo(ProductType type)
+    //    {
+    //        var product = Products.FirstOrDefault(x => x.Type == type);
+    //        if (product != null)
+    //        {
+    //            return product;
+    //        }
 
-        public ProductInfo GetProductInfo(ProductType type)
-        {
-            var product = Products.FirstOrDefault(x => x.Type == type);
-            if (product != null)
-            {
-                return product;
-            }
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
-            throw new NotImplementedException();
-        }
-    }
+    //[Serializable]
+    //public class ProductInfo
+    //{
+    //    public ProductType Type;
+    //    public string Name;
+    //    public Sprite Sprite;
+    //    public BaseBuilding ProductPrefab;
 
-    [Serializable]
-    public class ProductInfo
-    {
-        public ProductType Type;
-        public string Name;
-        public Sprite Sprite;
-        public BaseProduct ProductPrefab;
+    //    public bool HasProduction;
+    //    public ProductType ProductionType;
+    //    public Sprite ProductionSprite;
+    //    public float Cooldown;
+    //    public BaseBuilding ProductionPrefab;
 
-        public bool HasProduction;
-        public ProductType ProductionType;
-        public Sprite ProductionSprite;
-        public float Cooldown;
-        public BaseProduct ProductionPrefab;
+    //    public int Width;
+    //    public int Height;
 
-        public int Width;
-        public int Height;
-
-    }
+    //}
 }

@@ -11,7 +11,7 @@ namespace Assets._Scripts
 {
     public class InputController : MonoBehaviour
     {
-        private BaseProduct m_ProductToBeCreate;
+        private BaseBuilding m_ProductToBeCreate;
         private TileBehaviour m_SelectedTile;
 
         private void Update()
@@ -75,7 +75,7 @@ namespace Assets._Scripts
                     var endTile = GridManager.Instance.ConvertToTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                     var path = GridManager.Instance.FindPath(m_SelectedTile, endTile);
 
-                    if (m_SelectedTile.Product is SoldierProduct product &&
+                    if (m_SelectedTile.Product is SoldierBuilding product &&
                         path != null &&
                         path.Any())
                     {

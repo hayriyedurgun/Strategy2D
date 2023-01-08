@@ -20,7 +20,7 @@ namespace Assets._Scripts
         public TextMeshPro Text;
 
         [NonSerialized]
-        public BaseProduct Product;
+        public BaseBuilding Product;
         [NonSerialized]
         public int GCost;
         [NonSerialized]
