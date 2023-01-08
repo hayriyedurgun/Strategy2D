@@ -202,12 +202,12 @@ namespace Assets._Scripts
                         continue;
                     }
 
-                    var tempGCost = currentTile.GCost + currentTile.GetDistance(neighborTile);
+                    var tempGCost = currentTile.GCost + GetDistance(currentTile, neighborTile);
                     if (tempGCost < neighborTile.GCost)
                     {
                         neighborTile.PreviousTile = currentTile;
                         neighborTile.GCost = tempGCost;
-                        neighborTile.HCost = neighborTile.GetDistance(endTile);
+                        neighborTile.HCost = GetDistance(neighborTile, endTile);
 
                         if (!openTiles.Contains(neighborTile))
                         {
@@ -245,6 +245,11 @@ namespace Assets._Scripts
 
             tiles.Reverse();
             return tiles;
+        }
+
+        private int GetDistance(TileBehaviour tile1, TileBehaviour tile2)
+        {
+            return Math.Abs(tile1.PosX - tile2.PosX) + Math.Abs(tile1.PosY - tile2.PosY);
         }
     }
 }

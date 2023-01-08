@@ -52,8 +52,6 @@ namespace Assets._Scripts
             RaycastHit2D hit;
             foreach (var ray in RayTransforms)
             {
-                //hit = Physics2D.Raycast(ray.transform.position, Vector2.zero);
-
                 hit = Physics2D.Raycast(ray.transform.position, Vector2.zero, 10f, LayerHelper.Or(Layer.Tile));
                 if (hit.collider)
                 {
@@ -74,25 +72,16 @@ namespace Assets._Scripts
 
         public bool TryPlace()
         {
-            if (!m_ColoredTiles.Any() || 
+            if (!m_ColoredTiles.Any() ||
                 m_ColoredTiles.Any(x => !x.IsAvailable))
             {
                 return false;
             }
 
             m_ColoredTiles.ForEach(x => x.Product = this);
-            float x;
-            float y;
-            try
-            {
-                x = (float)m_ColoredTiles.Average(x => x.transform.position.x);
-                y = (float)m_ColoredTiles.Average(x => x.transform.position.y);
-            }
-            catch (InvalidOperationException e)
-            {
 
-                throw;
-            }
+            var x = (float)m_ColoredTiles.Average(x => x.transform.position.x);
+            var y = (float)m_ColoredTiles.Average(x => x.transform.position.y);
 
             transform.position = new Vector3(x, y, 0);
 

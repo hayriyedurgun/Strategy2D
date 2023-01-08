@@ -16,6 +16,8 @@ namespace Assets._Scripts
 
         private void Update()
         {
+            Debug.Log(Input.mouseScrollDelta);
+
             if (m_ProductToBeCreate)
             {
                 if (Input.GetMouseButtonUp(0))
@@ -31,12 +33,22 @@ namespace Assets._Scripts
                     return;
                 }
 
+                if (Input.GetMouseButtonUp(1))
+                {
+                    Destroy(m_ProductToBeCreate.gameObject);
+                    m_ProductToBeCreate.ClearTiles();
+                    m_ProductToBeCreate = null;
+
+                    return;
+                }
+
                 m_ProductToBeCreate.SendRay();
 
                 var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 worldPos.z = 0;
 
                 m_ProductToBeCreate.transform.position = worldPos;
+
             }
             else
             {

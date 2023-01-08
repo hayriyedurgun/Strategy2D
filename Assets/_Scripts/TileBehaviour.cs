@@ -82,11 +82,6 @@ namespace Assets._Scripts
             AvailityImage.gameObject.SetActive(false);
         }
 
-        public int GetDistance(TileBehaviour otherTile)
-        {
-            return Math.Abs(PosX - otherTile.PosX) + Math.Abs(PosY - otherTile.PosY);
-        }
-
         public void Reset()
         {
             GCost = 0;

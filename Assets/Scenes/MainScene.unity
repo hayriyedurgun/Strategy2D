@@ -1222,6 +1222,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 517491360}
+    - target: {fileID: 8028338023146821612, guid: 802d7332ef495b449926d3b3e5603f19, type: 3}
+      propertyPath: InputController
+      value: 
+      objectReference: {fileID: 517491360}
     - target: {fileID: 8028338023146821613, guid: 802d7332ef495b449926d3b3e5603f19, type: 3}
       propertyPath: m_Name
       value: GameManager
