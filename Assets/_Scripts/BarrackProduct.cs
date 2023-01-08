@@ -49,7 +49,7 @@ namespace Assets._Scripts
         {
             var tile = GridManager.Instance.ConvertToTile(SpawnTransform.position);
 
-            if (!tile.IsAvailable)
+            if (!tile.IsAvailable || !tile.TileRenderer.isVisible)
             {
                 tile = GridManager.Instance.GetNextAvailableNeigbour(tile);
 

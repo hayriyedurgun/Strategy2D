@@ -124,9 +124,9 @@ namespace Assets._Scripts
             var x = tile.PosX;
             var y = tile.PosY;
 
-            for (int horizontalIndex = -1; horizontalIndex <= 1; horizontalIndex++)
+            for (int horizontalIndex = -2; horizontalIndex <= 2; horizontalIndex++)
             {
-                for (int verticalIndex = -1; verticalIndex <= 1; verticalIndex++)
+                for (int verticalIndex = -2; verticalIndex <= 2; verticalIndex++)
                 {
                     // Skip the current tile
                     if (horizontalIndex == 0 && verticalIndex == 0)
