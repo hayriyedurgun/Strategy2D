@@ -65,7 +65,7 @@ namespace Assets._Scripts
 
             if (m_ColoredTiles.Count == RayTransforms.Length)
             {
-                var isAvailable = m_ColoredTiles.All(x => x.Product == null);
+                var isAvailable = m_ColoredTiles.All(x => x.Product == null && x.TileRenderer.isVisible);
                 m_ColoredTiles.ForEach(x => x.SetStatus(isAvailable));
             }
         }
