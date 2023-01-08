@@ -16,8 +16,6 @@ namespace Assets._Scripts
 
         private void Update()
         {
-            Debug.Log(Input.mouseScrollDelta);
-
             if (m_ProductToBeCreate)
             {
                 if (Input.GetMouseButtonUp(0))
