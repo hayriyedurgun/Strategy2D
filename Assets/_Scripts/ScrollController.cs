@@ -9,10 +9,10 @@ using UnityEngine.UI;
 
 namespace Assets
 {
+    [RequireComponent(typeof(InfinityScroll))]
     public class ScrollController : MonoBehaviour
     {
         public InfinityScroll Scroll;
-
 
         private void Awake()
         {
