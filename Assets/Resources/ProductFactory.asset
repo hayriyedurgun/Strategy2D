@@ -20,7 +20,7 @@ MonoBehaviour:
     HasProduction: 1
     ProductionType: 2
     ProductionSprite: {fileID: 6195530534402757937, guid: 94eb02b70ec8f944ba5de3d29c79608e, type: 3}
-    Cooldown: 3
+    Cooldown: 0.5
     ProductionPrefab: {fileID: 2764898469508254118, guid: dde4e424f65d1154d8f769861da50d9e, type: 3}
     Width: 4
     Height: 4
